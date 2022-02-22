@@ -18,6 +18,7 @@ class ReaderThread(private val clientSocket: Socket,
     private val indexReader: IndexReader = IndexReaderImpl(zineConfig, charset)
     override fun run() {
         try {
+            clearScreen()
             clientSocket.getOutputStream().write(indexReader.readWelcomePage())
             waitForReturnKey()
         } catch (ex: Throwable) {
@@ -39,6 +40,7 @@ class ReaderThread(private val clientSocket: Socket,
                 val storyReader: StoryReader = StoryReaderImpl(zineConfig, selectedStory)
                 clientSocket.getOutputStream().write("\n".toByteArray(charset))
                 storyReader.forEach {
+                    clearScreen()
                     clientSocket.getOutputStream().write(it)
                     waitForReturnKey()
                 }
@@ -53,6 +55,14 @@ class ReaderThread(private val clientSocket: Socket,
         while (clientSocket.getInputStream().read() != ASCII_LF) {
             // do nothing
         }
+    }
+
+    private fun clearScreen() {
+        if (charset != Charsets.UTF_8) {
+            println("Unsafe clear screen!")
+        }
+        val bytesToClearScreen = "\u001b[2J\u001b[H".toByteArray(Charsets.UTF_8)
+        clientSocket.getOutputStream().write(bytesToClearScreen)
     }
 
     private fun waitForStoryChoice(): Int {
