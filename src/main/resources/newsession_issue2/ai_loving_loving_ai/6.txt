@@ -1,0 +1,23 @@
+
+    love letter,                                                           
+    written in BASIC  (part 2)       GPT-3                   Merzmensch    
+
+                                                                              
+ This will print out "HELLO", wait a second for a keypress,                   
+ print "YOU ARE SWEET", wait a second for a keypress and print "I LOVE YOU".  
+                                                                              
+ So the program stops after printing "HELLO", but then waits a second         
+ and continues with printing "YOU ARE SWEET", then waits a second             
+ and continues with printing "I LOVE YOU".                                          
+ The "GOSUB" line means "Go To Subroutine".                                   
+                                                                              
+ So where is the subroutine at 1000? It is the subroutine at 1000, which      
+ prints "THE HEART HAS BEEN RETURNED TO YOU", waits for a keypress,           
+ resets the heart to 0 and continues back to the line after the "GOSUB" line.     
+                                                                              
+ So the program will be printed out "HELLO", wait a second,                   
+ print "YOU ARE SWEET", wait a second,                                        
+ print "I LOVE YOU" and then wait for a keypress.                             
+
+
+                                                             Part 2 / Page 6  

@@ -1,0 +1,24 @@
+my friends? i mean i hang out with them way more now, not like i have anything
+better to do
+>
+my family?
+oh uh
+i don't actually remember
+>
+yeah that's the one thing actually. would you mind doing me a favor?
+>
+yeah so have you ever heard of the concept of sharding?
+>
+ok basically so these big tech companies have all this data to store, right? and
+they have users all over the world? and they want the data to get to you fast
+(since you're in a physical location haha). so they have data centers all over
+the world so that when you request some data it comes from the closest one to
+you so that there's as little travel time as possible
+but they dont want to have a million copies of all the data, so they shard it
+this means that they only put the data in the places they think it's likely to
+be accessed from
+so like, theres probably a data center an hour drive from you that has you and
+all your friends' social media data or whatever
+>
+yeah so the company i'm uploaded with, they shard their data, and uh
+the shard with my memories of my family hasn't been online for a few days
