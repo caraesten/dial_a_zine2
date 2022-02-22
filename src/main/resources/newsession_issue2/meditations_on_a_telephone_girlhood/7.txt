@@ -1,0 +1,19 @@
+The Loop Maintenance Operations System is more than a computerized
+version of the ticket pad used by our dramatized telephone girl - it
+*is* this, but also a line record database[^6], a replacement for the
+tester's test desk apparatus[^7], efficiency reporting tool[^8], and as
+a unified system represented an early ancestor of today's customer
+records management software. In development since the mid-1970s (and
+replacing an earlier attempt called MLR, or "mechanized line record"),
+LMOS would achieve 75% adoption within the Bell System by the
+publication of Volume 61, Issue 6 of the Bell System Technical
+Journal[^9]. Its rapid emergence led to "significant reductions in
+repair expenses" and "flexibility" in how repair service bureaus (and
+their accompanying workers) could be organized, ultimately leading to
+the emergence and proliferation of the Centralized Repair Service
+Attendant Bureau, or CRSAB.
+----------
+[^6]: Franklin and Vogler, 1982, Bell System Techincal Journal 61:6
+[^7]: Dale, Robinson and Theriot, BSTJ 61:6
+[^8]: Boggs and Mashey, BSTJ 61:6.
+[^9]: Overstreet, BSTJ 61:6.

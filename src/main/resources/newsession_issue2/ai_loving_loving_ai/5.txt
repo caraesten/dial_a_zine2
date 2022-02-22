@@ -1,0 +1,23 @@
+
+    love letter,                                                           
+    written in BASIC  (part 1)       GPT-3                   Merzmensch    
+
+                                                                              
+  10 PRINT "HELLO"                                                            
+  20 GOSUB 1000                                                               
+  30 PRINT "YOU ARE SWEET"                                                    
+  40 GOSUB 1001                                                               
+  50 PRINT "I LOVE YOU"                                                       
+  60 END                                                                            
+  1000 REM GET THE HEART BACK                                                 
+  1001 REM THIS RETURNS A VALUE OF "0" IF THE HEART WAS RETURNED              
+  1002 REM BUT ANY OTHER NUMBER IS THE ADDRESS OF THE HEART                   
+  1010 HEART=PEEK(666)                                                        
+  1011 IF HEART>0 THEN PRINT "THE HEART HAS BEEN RETURNED TO                      
+  YOU":HEART=0:GOTO 1010                                                      
+  2000 PRINT "YOU ARE SWEET"                                                  
+  2001 END                                                                    
+                                                                              
+  
+  
+  ...next page for more...                                   Part 1 / Page 5  
