@@ -1,0 +1,23 @@
+Like many entry-level customer facing jobs in telephony, historically,
+an RSA was a woman - usually young, usually unwed, one of the vast
+cohort of "telephone girls" who served as the faces, but more often the
+voices, of the Bell System. A film produced by AT&T in 1953, entitled
+"Telephone Repair Service," dramatizes the early early decades of
+telephone trouble management.[^5] It is of interest both in its
+depiction of the expected career of the "telephone girl" (including
+marriage to one's male supervisor) and in its illustration of the
+typical division of labor in the early decades of the repair service
+bureau. The phone rings, is answered by a young woman who promptly and
+pleasantly answers questions, inquires further, and delicately inscribes
+on a slip of paper the nature and location of the trouble. This ticket is 
+then handed to a tester, a man, a skilled craftsperson who, using the test 
+desk, can measure the electrical characteristics of the line, simulate various
+conditions, and determine whether an outside craftsperson - a "lineman"
+- should be dispatched. Through the mid-seventies, at an ever-increasing
+scale and with a gradual easing of gender divisions in the labor pool,
+the work of the RSA continued as a purely analog affair. The continued
+rapid growth of the telephone network, however, created a need for a
+level of efficiency that paper record keeping could not reach. Enter the
+computer. Enter LMOS.
+--------
+[^5]: AT&T Archives: Telephone Repair Service. AT&T, 1953,

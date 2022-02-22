@@ -1,0 +1,24 @@
+>
+yeah so the favor is, could you run a couple commands in your terminal for me? i
+wouldn't ask but they don't give us superuser access in case we become "rogue
+AI" or "intelligent viruses" or whatever buzzwords
+>
+ok so to start can you just run `ping 165.122.999.08`
+>
+no pings are going through? ok seems like it's not connected
+try running this
+`ssh admin@165.122.997.16`
+password is "ihateyourdogs" (don't ask how i found out =P)
+>
+ok you're hacker voice in? thanks so much youre a champ for real
+ok run `dnsshardrouter map a7ee4d`
+>
+"no connection to shard a7ee4d"? Strange. ok how about try
+`dnsshardrouter reset -force`
+>
+you got an error? what's it say?
+>
+Oh. Huh, haven't seen that one before
+>
+Yeah i guess this does happen kind of often. Usually not for this long though
+and usually just tweaking the shard router map fixes it
