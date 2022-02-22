@@ -27,15 +27,11 @@ tasks.withType<KotlinCompile> {
 }
 
 application {
-    mainClass.set("com.dialazine.server.MainKt")
-}
-
-tasks.named<JavaExec>("run") {
-    val port: Int by project
+    val port: String by project
     val issueDirectory: String by project
     val indexFile: String by project
 
-    systemProperty("port", port)
-    systemProperty("issueDirectory", issueDirectory)
-    systemProperty("indexFile", indexFile)
+    mainClass.set("com.dialazine.server.MainKt")
+
+    applicationDefaultJvmArgs = listOf("-Dport=$port", "-DissueDirectory=$issueDirectory", "-DindexFile=$indexFile")
 }
