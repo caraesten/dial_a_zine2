@@ -1,0 +1,59 @@
+{
+    "hello": "welcome.txt",
+    "contents": [
+        {
+            "title": "Editor's Note",
+            "author": "Lo Ferris",
+            "type": "story",
+            "directory": "editors"
+        },
+        {
+            "title": "Azalea Asterism",
+            "author": "Violet",
+            "type": "story",
+            "directory": "azalea_asterism"
+        },
+        {
+            "title": "7 Poems For New Session",
+            "author": "Kayla Krut",
+            "type": "story",
+            "directory": "7_poems_for_new_session"
+        },
+        {
+            "title": "A Dissolution",
+            "author": "Jana H-S",
+            "type": "story",
+            "directory": "a_dissolution"
+        },
+        {
+            "title": "Meditations On A Telephone Girlhood",
+            "author": "Emmeryn Cariglino",
+            "type": "story",
+            "directory": "meditations_on_a_telephone_girlhood"
+        },
+        {
+            "title": "Digital Native",
+            "author": "Noa Chazan",
+            "type": "story",
+            "directory": "digital_native"
+        },
+        {
+            "title": "Remember When",
+            "author": "Madeleine Anderson",
+            "type": "story",
+            "directory": "remember_when"
+        },
+        {
+            "title": "AI Loving / Loving AI",
+            "author": "Merzmensch",
+            "type": "story",
+            "directory": "ai_loving_loving_ai"
+        },
+        {
+            "title": "Poems",
+            "author": "Sean Zhuraw",
+            "type": "story",
+            "directory": "sean_poems"
+        }
+    ]
+}
