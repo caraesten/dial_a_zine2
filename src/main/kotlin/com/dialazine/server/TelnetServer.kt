@@ -35,7 +35,7 @@ class TelnetServerImpl(port: Int,
                        private val connectionListener: ConnectionListener) : TelnetServer {
     private val zineIndex: ZineIndex
     private val server = ServerSocket(port).apply {
-        soTimeout = SOCKET_TIMEOUT_MILLIS.toInt()
+        soTimeout = 0 // block on .accept till a connection comes in; never time out!
     }
     private var coordinatorFuture: Future<*>? = null
     private var isRunning = false
@@ -50,10 +50,11 @@ class TelnetServerImpl(port: Int,
             while (true) {
                 // Supports 50 connections in the queue, is this too many?
                 val socket = server.accept()
-                connectionListener.onConnect(socket.inetAddress)
+                socket.soTimeout = SOCKET_TIMEOUT_MILLIS.toInt()
                 ReaderThread(socket, ZineConfig(zineIndex, issuePath), {
                     connectionListener.onDisconnect(socket.inetAddress)
                 }).start()
+                connectionListener.onConnect(socket.inetAddress)
             }
         }
         isRunning = true
@@ -67,7 +68,7 @@ class TelnetServerImpl(port: Int,
     override fun isRunning() = isRunning
 
     private companion object {
-        private const val SOCKET_TIMEOUT_SECONDS = 5L
-        private val SOCKET_TIMEOUT_MILLIS = TimeUnit.MINUTES.toMillis(SOCKET_TIMEOUT_SECONDS)
+        private const val SOCKET_TIMEOUT_MINUTES = 5L
+        private val SOCKET_TIMEOUT_MILLIS = TimeUnit.MINUTES.toMillis(SOCKET_TIMEOUT_MINUTES)
     }
 }
