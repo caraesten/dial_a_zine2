@@ -30,8 +30,9 @@ application {
     val port: String by project
     val issueDirectory: String by project
     val indexFile: String by project
+    val logFile: String by project
 
     mainClass.set("com.dialazine.server.MainKt")
 
-    applicationDefaultJvmArgs = listOf("-Dport=$port", "-DissueDirectory=$issueDirectory", "-DindexFile=$indexFile")
+    applicationDefaultJvmArgs = listOf("-Dport=$port", "-DissueDirectory=$issueDirectory", "-DindexFile=$indexFile", "-DlogFile=$logFile")
 }

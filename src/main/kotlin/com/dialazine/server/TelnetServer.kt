@@ -5,8 +5,8 @@ package com.dialazine.server
 import com.dialazine.server.models.ZineConfig
 import com.dialazine.server.models.ZineIndex
 import kotlinx.serialization.ExperimentalSerializationApi
-import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.decodeFromStream
+import kotlinx.serialization.json.*
+import java.io.File
 import java.net.InetAddress
 import java.net.ServerSocket
 import java.util.concurrent.Executors
@@ -32,8 +32,11 @@ interface ConnectionListener {
 class TelnetServerImpl(port: Int,
                        indexPath: String,
                        private val issuePath: String,
+                       private val logFilePath: String,
                        private val connectionListener: ConnectionListener) : TelnetServer {
+    private val activeConnectionDeque = java.util.ArrayDeque<ReaderConnection>()
     private val zineIndex: ZineIndex
+    private val logWriterThread = Executors.newSingleThreadExecutor()
     private val server = ServerSocket(port).apply {
         soTimeout = 0 // block on .accept till a connection comes in; never time out!
     }
@@ -51,10 +54,13 @@ class TelnetServerImpl(port: Int,
                 // Supports 50 connections in the queue, is this too many?
                 val socket = server.accept()
                 socket.soTimeout = SOCKET_TIMEOUT_MILLIS.toInt()
-                ReaderThread(socket, ZineConfig(zineIndex, issuePath), {
+                activeConnectionDeque.add(ReaderThread(socket, ZineConfig(zineIndex, issuePath), {
                     connectionListener.onDisconnect(socket.inetAddress)
-                }).start()
+                }).apply { start() })
+
                 connectionListener.onConnect(socket.inetAddress)
+
+                tidyUpConnections()
             }
         }
         isRunning = true
@@ -67,8 +73,35 @@ class TelnetServerImpl(port: Int,
 
     override fun isRunning() = isRunning
 
+    private fun tidyUpConnections() {
+        val deadConnections = activeConnectionDeque.descendingIterator().asSequence().takeWhile {
+            System.currentTimeMillis() - it.startTime > OVERALL_TIMEOUT_MILLIS
+        }.toSet()
+        activeConnectionDeque.removeAll(deadConnections)
+        deadConnections.forEach {
+            it.forceDisconnect()
+        }
+        writeConnectionLog()
+    }
+
+    private fun writeConnectionLog() {
+        logWriterThread.execute {
+            val json = buildJsonObject {
+                put("activeConnections", activeConnectionDeque.size)
+            }
+            try {
+                File(logFilePath).writeText(json.toString())
+            } catch (throwable: Throwable) {
+                println("Cannot write to log file")
+            }
+        }
+    }
+
     private companion object {
         private const val SOCKET_TIMEOUT_MINUTES = 5L
         private val SOCKET_TIMEOUT_MILLIS = TimeUnit.MINUTES.toMillis(SOCKET_TIMEOUT_MINUTES)
+        // Any session over this length gets kicked regardless of whether it's active
+        private const val OVERALL_TIMEOUT_MINUTES = 60L
+        private val OVERALL_TIMEOUT_MILLIS = TimeUnit.MINUTES.toMillis(OVERALL_TIMEOUT_MINUTES)
     }
 }

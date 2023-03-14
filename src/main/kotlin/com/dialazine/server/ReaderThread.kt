@@ -11,10 +11,22 @@ import java.io.InputStreamReader
 import java.net.Socket
 import java.nio.charset.Charset
 
+interface ReaderConnection {
+    val startTime: Long
+    fun forceDisconnect()
+}
+
 class ReaderThread(private val clientSocket: Socket,
                    private val zineConfig: ZineConfig,
-                   val onDisconnect: () -> Unit,
-                   private val charset: Charset = Charsets.UTF_8) : Thread() {
+                   private val onDisconnect: () -> Unit,
+                   private val charset: Charset = Charsets.UTF_8) : Thread(), ReaderConnection {
+
+    override val startTime = System.currentTimeMillis()
+
+    override fun forceDisconnect() {
+        performDisconnect()
+    }
+
     private val indexReader: IndexReader = IndexReaderImpl(zineConfig, charset)
     override fun run() {
         try {
