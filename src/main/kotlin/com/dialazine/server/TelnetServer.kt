@@ -56,6 +56,8 @@ class TelnetServerImpl(port: Int,
                 socket.soTimeout = SOCKET_TIMEOUT_MILLIS.toInt()
                 activeConnectionDeque.add(ReaderThread(socket, ZineConfig(zineIndex, issuePath), {
                     connectionListener.onDisconnect(socket.inetAddress)
+                    activeConnectionDeque.remove(it)
+                    tidyUpConnections()
                 }).apply { start() })
 
                 connectionListener.onConnect(socket.inetAddress)

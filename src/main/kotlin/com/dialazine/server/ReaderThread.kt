@@ -18,7 +18,7 @@ interface ReaderConnection {
 
 class ReaderThread(private val clientSocket: Socket,
                    private val zineConfig: ZineConfig,
-                   private val onDisconnect: () -> Unit,
+                   private val onDisconnect: (ReaderThread) -> Unit,
                    private val charset: Charset = Charsets.UTF_8) : Thread(), ReaderConnection {
 
     override val startTime = System.currentTimeMillis()
@@ -101,7 +101,7 @@ class ReaderThread(private val clientSocket: Socket,
 
     private fun performDisconnect() {
         clientSocket.close()
-        onDisconnect()
+        onDisconnect(this)
         interrupt()
     }
 
