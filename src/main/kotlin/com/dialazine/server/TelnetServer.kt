@@ -115,7 +115,7 @@ class TelnetServerImpl(port: Int,
         private const val SOCKET_TIMEOUT_MINUTES = 5L
         private val SOCKET_TIMEOUT_MILLIS = TimeUnit.MINUTES.toMillis(SOCKET_TIMEOUT_MINUTES)
         // Any session over this length gets kicked regardless of whether it's active
-        private const val OVERALL_TIMEOUT_MINUTES = 60L
+        private const val OVERALL_TIMEOUT_MINUTES = 10L
         private val OVERALL_TIMEOUT_MILLIS = TimeUnit.MINUTES.toMillis(OVERALL_TIMEOUT_MINUTES)
     }
 }
