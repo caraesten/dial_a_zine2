@@ -15,8 +15,8 @@ fun main(args: Array<String>) {
             println("Received connection at: ${ZonedDateTime.now().format(timeFormatter)}")
         }
 
-        override fun onDisconnect(inetAddress: InetAddress) {
-            println("Lost connection at: ${ZonedDateTime.now().format(timeFormatter)}")
+        override fun onDisconnect(inetAddress: InetAddress, reason: DisconnectReason) {
+            println("Lost connection at: ${ZonedDateTime.now().format(timeFormatter)} due to: $reason")
         }
     })
 

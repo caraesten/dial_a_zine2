@@ -24,9 +24,15 @@ interface TelnetServer {
     fun isRunning(): Boolean
 }
 
+enum class DisconnectReason {
+    TIMEOUT,
+    EXCEPTION,
+    GRACEFUL
+}
+
 interface ConnectionListener {
     fun onConnect(inetAddress: InetAddress)
-    fun onDisconnect(inetAddress: InetAddress)
+    fun onDisconnect(inetAddress: InetAddress, reason: DisconnectReason)
 }
 
 class TelnetServerImpl(port: Int,
@@ -55,10 +61,10 @@ class TelnetServerImpl(port: Int,
                 // Supports 50 connections in the queue, is this too many?
                 val socket = server.accept()
                 socket.soTimeout = SOCKET_TIMEOUT_MILLIS.toInt()
-                activeConnectionDeque.add(ReaderThread(socket, ZineConfig(zineIndex, issuePath), {
-                    connectionListener.onDisconnect(socket.inetAddress)
+                activeConnectionDeque.add(ReaderThread(socket, ZineConfig(zineIndex, issuePath), { connection, reason ->
+                    connectionListener.onDisconnect(socket.inetAddress, reason)
                     cleanupThread.submit {
-                        activeConnectionDeque.remove(it)
+                        activeConnectionDeque.remove(connection)
                         tidyUpConnections()
                     }
                 }).apply { start() })
@@ -86,7 +92,7 @@ class TelnetServerImpl(port: Int,
         }.toSet()
         activeConnectionDeque.removeAll(deadConnections)
         deadConnections.forEach {
-            it.forceDisconnect()
+            it.timeoutConnection()
         }
         writeConnectionLog()
     }

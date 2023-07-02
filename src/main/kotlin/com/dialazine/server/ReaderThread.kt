@@ -13,18 +13,18 @@ import java.nio.charset.Charset
 
 interface ReaderConnection {
     val startTime: Long
-    fun forceDisconnect()
+    fun timeoutConnection()
 }
 
 class ReaderThread(private val clientSocket: Socket,
                    private val zineConfig: ZineConfig,
-                   private val onDisconnect: (ReaderThread) -> Unit,
+                   private val onDisconnect: (ReaderThread, DisconnectReason) -> Unit,
                    private val charset: Charset = Charsets.UTF_8) : Thread(), ReaderConnection {
 
     override val startTime = System.currentTimeMillis()
 
-    override fun forceDisconnect() {
-        performDisconnect()
+    override fun timeoutConnection() {
+        performDisconnect(DisconnectReason.TIMEOUT)
     }
 
     private val indexReader: IndexReader = IndexReaderImpl(zineConfig, charset)
@@ -35,14 +35,14 @@ class ReaderThread(private val clientSocket: Socket,
             waitForReturnKey()
         } catch (ex: Throwable) {
             ex.printStackTrace()
-            performDisconnect()
+            performDisconnect(DisconnectReason.EXCEPTION)
         }
         while (!currentThread().isInterrupted) {
             try {
                 clientSocket.getOutputStream().write(indexReader.readContentsPage())
                 val selectedStoryItem = waitForStoryChoice()
                 if (selectedStoryItem == -1) {
-                    performDisconnect()
+                    performDisconnect(DisconnectReason.GRACEFUL)
                     return
                 }
                 val selectedStory = zineConfig.index.contents.getOrNull(selectedStoryItem - 1)
@@ -58,7 +58,7 @@ class ReaderThread(private val clientSocket: Socket,
                 }
             } catch (ex: Throwable) { // TODO: be more specific
                 ex.printStackTrace()
-                performDisconnect()
+                performDisconnect(DisconnectReason.EXCEPTION)
             }
         }
     }
@@ -100,9 +100,9 @@ class ReaderThread(private val clientSocket: Socket,
         }
     }
 
-    private fun performDisconnect() {
+    private fun performDisconnect(reason: DisconnectReason) {
         clientSocket.close()
-        onDisconnect(this)
+        onDisconnect(this, reason)
         interrupt()
     }
 
