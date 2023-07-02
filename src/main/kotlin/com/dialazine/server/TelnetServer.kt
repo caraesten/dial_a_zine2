@@ -37,6 +37,7 @@ class TelnetServerImpl(port: Int,
     private val activeConnectionDeque = java.util.ArrayDeque<ReaderConnection>()
     private val zineIndex: ZineIndex
     private val logWriterThread = Executors.newSingleThreadExecutor()
+    private val cleanupThread = Executors.newSingleThreadExecutor()
     private val server = ServerSocket(port).apply {
         soTimeout = 0 // block on .accept till a connection comes in; never time out!
     }
@@ -56,13 +57,17 @@ class TelnetServerImpl(port: Int,
                 socket.soTimeout = SOCKET_TIMEOUT_MILLIS.toInt()
                 activeConnectionDeque.add(ReaderThread(socket, ZineConfig(zineIndex, issuePath), {
                     connectionListener.onDisconnect(socket.inetAddress)
-                    activeConnectionDeque.remove(it)
-                    tidyUpConnections()
+                    cleanupThread.submit {
+                        activeConnectionDeque.remove(it)
+                        tidyUpConnections()
+                    }
                 }).apply { start() })
 
                 connectionListener.onConnect(socket.inetAddress)
 
-                tidyUpConnections()
+                cleanupThread.submit {
+                    tidyUpConnections()
+                }
             }
         }
         isRunning = true
@@ -95,6 +100,7 @@ class TelnetServerImpl(port: Int,
                 File(logFilePath).writeText(json.toString())
             } catch (throwable: Throwable) {
                 println("Cannot write to log file")
+                println("Connections: ${activeConnectionDeque.size}")
             }
         }
     }

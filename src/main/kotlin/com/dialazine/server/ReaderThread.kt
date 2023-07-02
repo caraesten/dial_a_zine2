@@ -79,17 +79,18 @@ class ReaderThread(private val clientSocket: Socket,
 
     private fun waitForStoryChoice(): Int {
         val inputStream = BufferedReader(InputStreamReader(clientSocket.getInputStream()))
-        val selectionString = try {
+        val selectionString: String? = try {
             inputStream.readLine()
         } catch (ex: IllegalArgumentException) {
             ""
         } catch (ex: IOException) {
             ""
         }
+
         return if (selectionString.equals("x", ignoreCase = true)) {
             -1
         } else {
-            val selectionNumber = selectionString.toIntOrNull() ?: -1
+            val selectionNumber = selectionString?.toIntOrNull() ?: -1
             if (selectionNumber > 0 && selectionNumber <= zineConfig.index.contents.size) {
                 selectionNumber
             } else {
