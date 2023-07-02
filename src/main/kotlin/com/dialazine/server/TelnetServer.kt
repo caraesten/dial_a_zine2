@@ -81,7 +81,7 @@ class TelnetServerImpl(port: Int,
     override fun isRunning() = isRunning
 
     private fun tidyUpConnections() {
-        val deadConnections = activeConnectionDeque.descendingIterator().asSequence().takeWhile {
+        val deadConnections = activeConnectionDeque.filter {
             System.currentTimeMillis() - it.startTime > OVERALL_TIMEOUT_MILLIS
         }.toSet()
         activeConnectionDeque.removeAll(deadConnections)
