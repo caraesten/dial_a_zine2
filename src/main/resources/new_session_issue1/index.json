@@ -1,0 +1,59 @@
+{
+    "hello": "welcome.txt",
+    "contents": [
+        {
+            "title": "Editor's Note (And Users' Manual)",
+            "author": "Cara Esten",
+            "type": "story",
+            "directory": "editors_howto"
+        },
+        {
+            "title": "Manak",
+            "author": "Frog K.",
+            "type": "story",
+            "directory": "manak"
+        },
+        {
+            "title": "Milestones",
+            "author": "Jeri Claire",
+            "type": "story",
+            "directory": "milestones"
+        },
+        {
+            "title": "Dear Maya",
+            "author": "Jade G.",
+            "type": "story",
+            "directory": "dear_maya"
+        },
+        {
+            "title": "An Old Man's Story",
+            "author": "June Martin",
+            "type": "story",
+            "directory": "old_mans_story"
+        },
+        {
+            "title": "Searching For CRT Green",
+            "author": "Ashley Blewer",
+            "type": "story",
+            "directory": "crt_green"
+        },
+        {
+            "title": "Letters From the Beast in Crete",
+            "author": "jefferson tesla",
+            "type": "story",
+            "directory": "beast_in_crete"
+        },
+        {
+            "title": "To Be A Fruiting Body",
+            "author": "A.C.",
+            "type": "story",
+            "directory": "fruiting_body"
+        },
+        {
+            "title": "Pleased",
+            "author": "Jade G.",
+            "type": "story",
+            "directory": "pleased"
+        }
+    ]
+}

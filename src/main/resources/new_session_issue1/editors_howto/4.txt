@@ -1,0 +1,23 @@
+//
+So welcome! Now that you're here, how do you get around? Well, I'm sure you've
+realized by now that you press the return (enter) key to go to the next page.
+This is true for all parts of the magazine except for the index. There, you can
+just press the number for the story you want to read. The magazine will tell
+you which number you pressed, and you'll be on the way to the story. That's it,
+it's pretty simple!
+>> PRESS [RETURN]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
