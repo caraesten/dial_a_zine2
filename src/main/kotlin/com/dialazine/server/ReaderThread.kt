@@ -50,10 +50,13 @@ class ReaderThread(private val clientSocket: Socket,
                 clientSocket.getOutputStream().write(indexReader.readStorySelection(selectedStory))
                 waitForReturnKey()
                 val storyReader: StoryReader = StoryReaderImpl(zineConfig, selectedStory)
-                clientSocket.getOutputStream().write("\n".toByteArray(charset))
+                clientSocket.getOutputStream().write("\r\n".toByteArray(charset))
                 storyReader.forEach {
                     clearScreen()
-                    clientSocket.getOutputStream().write(it)
+                    it.readLines().forEach {
+                        val outputString = "$it\r\n"
+                        clientSocket.getOutputStream().write(outputString.toByteArray())
+                    }
                     waitForReturnKey()
                 }
             } catch (ex: Throwable) { // TODO: be more specific

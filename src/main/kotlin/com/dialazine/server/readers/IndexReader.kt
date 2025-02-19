@@ -18,16 +18,13 @@ class IndexReaderImpl(private val zineConfig: ZineConfig,
 
     override fun readContentsPage(): ByteArray {
         val contentsList = zineConfig.index.contents.mapIndexed { index, item ->
-            "${index + 1} > ${item.title} < ...by ${item.author}\n"
-        } + "(or X to quit!)\n"
+            "${index + 1} > ${item.title} < ...by ${item.author}\r\n"
+        } + "(or X to quit!)\r\n"
         return contentsList.joinToString("\n").toByteArray(charset)
     }
 
     override fun readStorySelection(story: Story): ByteArray {
-        return """
-            
-            ...you picked: ${story.title} by ${story.author}
-            ...press RETURN to start reading, and to continue after each page...
-        """.trimIndent().toByteArray(charset)
+        return ("\r\n...you picked: ${story.title} by ${story.author}" +
+            "\r\n...press RETURN to start reading, and to continue after each page...").toByteArray(charset)
     }
 }
